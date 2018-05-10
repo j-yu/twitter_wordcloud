@@ -39,6 +39,3 @@ class TwitterInterface:
             tweets.append(text)
 
         return tweets
-
-
-client = TwitterInterface()
