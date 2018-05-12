@@ -1,6 +1,7 @@
 import tweepy
-import re
-from nltk import pos_tag, word_tokenize
+import string
+from nltk import word_tokenize
+from nltk.corpus import stopwords
 
 # register and create your Twitter application at apps.twitter.com
 consumer_key = 'your consumer key'
@@ -18,11 +19,16 @@ class TwitterInterface:
     def __init__(self, screen_name=''):
         self.screen_name = screen_name
 
-    def clean_and_find_nouns(self, sent_string):
-        x = " ".join(re.sub(r'(@[A-Za-z0-9]+)|([^0-9A-Za-z \t\n])|(\w+:\S+)', " ", sent_string['text']).split())
-        nouns = [word for word, pos in pos_tag(word_tokenize(x)) if
-                 pos == 'NN' or pos == 'NNP' or pos == 'NNS' or pos == 'NNPS']
-        return " ".join(nouns) + " "
+    def clean_text(self, tweet):
+        tokens = word_tokenize(tweet['text'])
+        tokens = [w.lower() for w in tokens]
+        table = str.maketrans('', '', string.punctuation)
+        stripped = [w.translate(table) for w in tokens]
+        words = [word for word in stripped if word.isalpha()]
+        stop_words = stopwords.words('english')
+        words = [w for w in words if w not in stop_words and w not in ['https', 'http', 'amp']]
+
+        return " ".join(words)
 
     def grab_texts(self):
         tweets = []
@@ -34,8 +40,8 @@ class TwitterInterface:
             except:
                 text = {'text': status.full_text}
 
-            text['text'] = self.clean_and_find_nouns(text)
+            cleaned = self.clean_text(text)
 
-            tweets.append(text)
+            tweets.append({'text': cleaned})
 
         return tweets
