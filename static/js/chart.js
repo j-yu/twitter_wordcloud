@@ -37,7 +37,7 @@ Highcharts.chart('container', {
     spiral: 'archimedean'
   }],
   title: {
-    text: '@' + $('#query').val() + '\'s' + ' last 50 tweets and retweets:'
+    text: 'from ' + '@' + $('#query').val() + '\'s' + ' last 50 tweets and retweets:'
   },
 
 });
