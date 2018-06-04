@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twitter Word Cloud</title>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" integrity="sha384-awusxf8AUojygHf2+joICySzB780jVvQaVCAt1clU3QsyAitLGul28Qxb2r1e5g+" crossorigin="anonymous">
-
-</head>
-<body>
-
-<div class="container-fluid">
-    <div class='text-center'>
-        <h2>Twitter Word Cloud Analysis</h2>
-        <h5> Visualize the most common words from a user's recent timeline </h5>
-        <div id="search_box" class="container-fluid">
-            <input type="text" id="query">
-            <button id="launch">Launch</button>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sentiment Analysis (Twitter) </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container-fluid" style="text-align: center; word-wrap: break-word; min-width: 320px; min-height: 568px;">
+            <h1> Twitter Sentiment Analysis </h1>
+            <div class="row" style="border-style: solid;">
+                <div id="search_box" class="container-fluid">
+                    <input type="text" id="query">
+                    <button type="button" class="btn btn-primary" id="launch">Launch</button>
+                </div>
+            </div>
+            <div class="row" style="border-style: solid;">
+                <div class="col-md-12">
+                    <h3>Word Frequency</h3>
+                    <!--{% block content %}{% endblock %}-->
+                    <div id="container" style="margin: auto; min-width: 320px; min-height: 568px;"></div>
+                    <h3>Tweet Sentiment</h3>
+                    <div class="pre-scrollable"></div>
+                </div>
+            </div>
         </div>
-        <div class="container-fluid" id="container" style="min-width: 900px; min-height: 900px; margin: 0 auto;"></div>
-    </div>
-
-    <script type="text/javascript" src="{{ url_for('static', filename='js/chart.js') }}"></script>
-
-</div>
-</body>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/chart.js') }}"></script>
+    </body>
 </html>
