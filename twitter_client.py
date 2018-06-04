@@ -48,10 +48,9 @@ class TwitterInterface:
 
     def grab_texts(self):
 
-        db = models.DataBase()
-        db.delete()
+        self.db.delete()
 
-        for status in tweepy.Cursor(api.user_timeline, screen_name=self.screen_name, tweet_mode='extended').items(20):
+        for status in tweepy.Cursor(api.user_timeline, screen_name=self.screen_name, tweet_mode='extended').items(50):
             try:
                 tweet = {'text': status.retweeted_status.full_text, 'username': status.user.screen_name}
             except:
@@ -64,7 +63,7 @@ class TwitterInterface:
             sentiment = self.sentiment(clean)
             tweet['sentiment'] = sentiment
 
-            db.create(tweet)
+            self.db.create(tweet)
 
             r = self.db.read()
         return r
