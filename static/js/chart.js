@@ -1,5 +1,4 @@
 $(function() {
-    console.log('document ready');
     tweets('realdonaldtrump');
     $('#launch').click(function() {
         tweets($('#query').val());
@@ -12,9 +11,7 @@ function tweets(query) {
     $.get('tweets', {
         'query': query
     }, function(data) {
-        console.log(data);
         data = data['tweets'];
-        console.log(data);
         clean = '';
         for (i = 0; i < data.length; i++) {
             clean += data[i]['clean'];
@@ -30,7 +27,7 @@ function tweets(query) {
                 return '<div class="panel panel-default">' + '<div class="panel-heading">' + '@ ' + data[i]['username'] + '</div>' + '<div class="panel-body">' + data[i]['text'] + '</div>' + '</div>';
             }
         };
-        console.log(clean);
+
         buildChart(clean);
     });
 };
